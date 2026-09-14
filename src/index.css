@@ -3,6 +3,7 @@
 @theme {
   --color-bg: #f7f6f2;
   --color-surface: #ffffff;
+  --color-sidebar: #eeece5;
   --color-border: #e4e1d8;
   --color-ink: #22261f;
   --color-ink-muted: #6b7268;
@@ -21,7 +22,8 @@
   --color-status-emergency-bg: #f6d3cc;
 
   --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --font-heading: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -72,5 +74,26 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .status-pulse {
     animation: none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-border bg-surface shadow-[0_8px_24px_rgba(54,48,36,0.05)] transition-[box-shadow,border-color] duration-200;
+  }
+  .card:hover {
+    @apply border-[#d7d1c4] shadow-[0_10px_28px_rgba(54,48,36,0.08)];
+  }
+  .eyebrow {
+    @apply font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink-muted;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg border border-ink bg-ink px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_10px_rgba(34,38,31,0.1)] transition-all duration-150 hover:-translate-y-px hover:bg-[#373d33] hover:shadow-[0_7px_16px_rgba(34,38,31,0.15)] active:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 rounded-lg border border-[#c9b69d] bg-transparent px-3.5 py-2.5 text-sm font-semibold text-[#805325] transition-colors duration-150 hover:bg-[#f0e8dd];
+  }
+  .btn-text {
+    @apply inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 text-sm font-semibold text-accent transition-colors duration-150 hover:bg-[#f3ece3];
   }
 }

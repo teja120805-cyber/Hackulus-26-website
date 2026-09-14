@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Battery, ChevronRight, Radio, TriangleAlert } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useSimulationStore } from "../lib/simulationStore";
 import { DensityChart } from "../components/zone/DensityChart";
@@ -10,80 +10,131 @@ export function ZoneDetail() {
   const allNodes = useSimulationStore((s) => s.nodes);
   const updateZoneThreshold = useSimulationStore((s) => s.updateZoneThreshold);
 
-  const zone = useMemo(() => zones.find((z) => z.id === id), [zones, id]);
-  const nodes = useMemo(() => allNodes.filter((n) => n.zoneId === id), [allNodes, id]);
+  const zone = zones.find((z) => z.id === id);
+  const nodes = allNodes.filter((n) => n.zoneId === id);
 
   if (!zone) {
     return (
       <div className="flex flex-col gap-4">
         <p className="text-sm text-ink-muted">Zone not found.</p>
-        <Link to="/" className="text-accent underline">
+        <Link to="/" className="btn-text w-fit">
           Back to dashboard
         </Link>
       </div>
     );
   }
 
+  const pctOfThreshold = Math.round((zone.densityScore / zone.capacityThreshold) * 100);
+
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <Link to="/" className="text-sm text-accent hover:underline">
-          ← Dashboard
+      <div className="flex items-center gap-1.5 text-xs text-ink-muted">
+        <Link to="/" className="text-accent hover:underline">
+          Overview
         </Link>
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-semibold text-ink">{zone.name}</h1>
-          <StatusBadge status={zone.status} pulse />
-        </div>
-        <p className="mt-1 text-sm text-ink-muted">
-          Density {zone.densityScore} of {zone.capacityThreshold} threshold
-        </p>
+        <ChevronRight size={13} />
+        <span>Zones</span>
+        <ChevronRight size={13} />
+        <b className="font-medium text-ink">{zone.name}</b>
       </div>
 
-      <DensityChart trend={zone.trend} capacityThreshold={zone.capacityThreshold} />
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="font-heading text-[1.75rem] font-semibold text-ink sm:text-3xl">{zone.name}</h1>
+            <StatusBadge status={zone.status} pulse />
+          </div>
+          <p className="mt-1 text-sm text-ink-muted">
+            Zone ID {zone.id.toUpperCase()} · capacity threshold {zone.capacityThreshold}
+          </p>
+        </div>
+        <div className="text-right">
+          <span className="block text-[11px] text-ink-muted">Current density</span>
+          <strong className="font-heading text-4xl font-semibold text-ink">
+            {zone.densityScore}
+            <small className="text-base font-normal text-ink-muted">/100</small>
+          </strong>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <section className="rounded-xl border border-border bg-surface p-4">
-          <h2 className="mb-3 text-sm font-semibold text-ink">Capacity Threshold</h2>
-          <label htmlFor="threshold" className="text-xs text-ink-muted">
-            Adjust the alert threshold for this zone
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.7fr_1fr]">
+        <section className="card p-5">
+          <div className="mb-3 flex items-center justify-between">
+            <div>
+              <p className="eyebrow">Density Trend</p>
+              <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Recent readings</h2>
+            </div>
+            <span className="flex items-center gap-1.5 font-mono text-[10px] text-status-low">
+              <span className="h-1.5 w-1.5 rounded-full bg-status-low" /> Live reading
+            </span>
+          </div>
+          <DensityChart trend={zone.trend} capacityThreshold={zone.capacityThreshold} />
+        </section>
+
+        <section className="card p-5">
+          <p className="eyebrow">Zone Configuration</p>
+          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Capacity threshold</h2>
+          <p className="mt-1 text-xs text-ink-muted">Alerts escalate once density passes this point.</p>
+          <label htmlFor="threshold" className="mt-6 block text-xs text-ink-muted">
+            Warning threshold
+            <output className="float-right font-mono text-sm font-semibold text-ink">
+              {zone.capacityThreshold}
+            </output>
           </label>
-          <div className="mt-2 flex items-center gap-3">
-            <input
-              id="threshold"
-              type="range"
-              min={10}
-              max={150}
-              value={zone.capacityThreshold}
-              onChange={(e) => updateZoneThreshold(zone.id, Number(e.target.value))}
-              className="flex-1 accent-accent"
-            />
-            <span className="w-12 text-right text-sm font-medium text-ink">{zone.capacityThreshold}</span>
+          <input
+            id="threshold"
+            type="range"
+            min={10}
+            max={150}
+            value={zone.capacityThreshold}
+            onChange={(e) => updateZoneThreshold(zone.id, Number(e.target.value))}
+            className="mt-3 w-full accent-accent"
+          />
+          <div className="mt-6 flex items-center gap-2 rounded-lg border border-[#efdfca] bg-[#fbf5eb] px-3 py-2.5 text-xs text-[#835b31]">
+            <TriangleAlert size={16} className="shrink-0" />
+            <span>
+              Current reading is <b>{pctOfThreshold}%</b> of threshold
+            </span>
           </div>
         </section>
-
-        <section className="rounded-xl border border-border bg-surface p-4">
-          <h2 className="mb-3 text-sm font-semibold text-ink">Nodes in this Zone</h2>
-          {nodes.length === 0 ? (
-            <p className="text-sm text-ink-muted">No nodes assigned.</p>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {nodes.map((node) => (
-                <li key={node.id} className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm">
-                  <span className="font-medium text-ink">{node.id}</span>
-                  <span className="flex items-center gap-2 text-ink-muted">
-                    {node.connected ? (
-                      <span className="text-status-low">● Connected</span>
-                    ) : (
-                      <span className="text-status-critical">✕ Offline {Math.round(node.lastSeenSeconds)}s</span>
-                    )}
-                    <span>{Math.round(node.batteryLevel)}% batt</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
       </div>
+
+      <section className="card p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <div>
+            <p className="eyebrow">Sensor Inputs</p>
+            <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Nodes in this zone</h2>
+          </div>
+          <span className="text-xs text-ink-muted">{nodes.length} assigned</span>
+        </div>
+        {nodes.length === 0 ? (
+          <p className="text-sm text-ink-muted">No nodes assigned.</p>
+        ) : (
+          <ul className="flex flex-col">
+            {nodes.map((node) => (
+              <li
+                key={node.id}
+                className="flex items-center gap-3 border-b border-[#efede7] py-3 text-sm last:border-0"
+              >
+                <span
+                  className={`grid h-[29px] w-[29px] shrink-0 place-items-center rounded-lg ${
+                    node.connected ? "bg-status-low-bg text-status-low" : "bg-status-critical-bg text-status-critical"
+                  }`}
+                >
+                  <Radio size={15} />
+                </span>
+                <b className="font-mono text-xs text-ink">{node.id}</b>
+                <span className="flex-1 text-xs text-ink-muted">
+                  {node.connected ? "Connected" : `Offline ${Math.round(node.lastSeenSeconds)}s`}
+                </span>
+                <span className="flex items-center gap-1 text-xs text-ink-muted">
+                  <Battery size={14} /> {Math.round(node.batteryLevel)}%
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }

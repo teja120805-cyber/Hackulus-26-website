@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Radio, X, Zap } from "lucide-react";
 import type { Node } from "../../types";
 import { useSimulationStore } from "../../lib/simulationStore";
 
@@ -35,7 +36,14 @@ export function MeshView({ nodes }: MeshViewProps) {
   };
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-4">
+    <section className="card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <p className="eyebrow">Mesh Topology</p>
+          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Self-healing network</h2>
+        </div>
+        <Zap size={16} className="text-accent" />
+      </div>
       <svg viewBox="0 0 600 440" className="w-full" role="img" aria-label="Mesh network topology">
         <circle cx={CENTER.x} cy={CENTER.y} r={26} fill="#22261f" />
         <text x={CENTER.x} y={CENTER.y + 4} textAnchor="middle" fontSize="10" fill="#fff" fontWeight={600}>
@@ -104,25 +112,34 @@ export function MeshView({ nodes }: MeshViewProps) {
         {nodes.map((node) => (
           <li
             key={node.id}
-            className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
+            className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2 text-sm"
           >
-            <div>
-              <p className="font-medium text-ink">{node.id}</p>
-              <p className="text-xs text-ink-muted">
-                {node.connected ? "Connected" : `Offline ${Math.round(node.lastSeenSeconds)}s — rerouted`} ·{" "}
-                {Math.round(node.batteryLevel)}% battery
-              </p>
+            <div className="flex min-w-0 items-center gap-2.5">
+              <span
+                className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${
+                  node.connected ? "bg-status-low-bg text-status-low" : "bg-status-critical-bg text-status-critical"
+                }`}
+              >
+                {node.connected ? <Radio size={14} /> : <X size={14} />}
+              </span>
+              <div className="min-w-0">
+                <p className="truncate font-medium text-ink">{node.id}</p>
+                <p className="truncate text-xs text-ink-muted">
+                  {node.connected ? "Connected" : `Offline ${Math.round(node.lastSeenSeconds)}s — rerouted`} ·{" "}
+                  {Math.round(node.batteryLevel)}%
+                </p>
+              </div>
             </div>
             <button
               type="button"
               onClick={() => (node.connected ? dropNode(node.id) : restoreNode(node.id))}
-              className="rounded-md border border-accent px-2 py-1 text-xs font-medium text-accent hover:bg-accent hover:text-white"
+              className="shrink-0 rounded-md border border-accent px-2 py-1 text-xs font-medium text-accent hover:bg-accent hover:text-white"
             >
               {node.connected ? "Drop" : "Restore"}
             </button>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

@@ -1,6 +1,8 @@
+import { Radio } from "lucide-react";
 import { useSimulationStore } from "../lib/simulationStore";
 import { MeshView } from "../components/network/MeshView";
 import { AlertFeed } from "../components/dashboard/AlertFeed";
+import { PageIntro } from "../components/PageIntro";
 
 export function Network() {
   const nodes = useSimulationStore((s) => s.nodes);
@@ -10,12 +12,21 @@ export function Network() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-ink">Node Network</h1>
-        <p className="mt-1 text-sm text-ink-muted">
-          {online}/{nodes.length} nodes online. Offline nodes reroute through a connected neighbor back to the hub.
-        </p>
-      </div>
+      <PageIntro
+        eyebrow="Mesh Topology"
+        title="Self-healing network."
+        description="Every reading finds a path back to the control room."
+        compact
+        action={
+          <div className="flex items-center gap-2 rounded-lg border border-[#d6e8d8] px-3.5 py-2.5 text-sm text-status-low">
+            <Radio size={18} />
+            <b className="font-heading text-base">
+              {online}/{nodes.length}
+            </b>
+            relays online
+          </div>
+        }
+      />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
         <MeshView nodes={nodes} />

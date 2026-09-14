@@ -1,3 +1,4 @@
+import { BatteryWarning, Radio } from "lucide-react";
 import type { Node } from "../../types";
 
 interface NodeHealthSummaryProps {
@@ -11,10 +12,16 @@ export function NodeHealthSummary({ nodes }: NodeHealthSummaryProps) {
   const pct = total === 0 ? 100 : Math.round((online / total) * 100);
 
   return (
-    <section className="rounded-xl border border-border bg-surface p-4" aria-label="Node network health">
-      <h2 className="mb-3 text-sm font-semibold text-ink">Node Network</h2>
+    <section className="card p-5" aria-label="Node network health">
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <p className="eyebrow">Mesh Health</p>
+          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Node Network</h2>
+        </div>
+        <Radio size={16} className="text-status-low" />
+      </div>
       <div className="flex items-baseline gap-2">
-        <span className="text-3xl font-semibold text-ink">
+        <span className="font-heading text-3xl font-semibold text-ink">
           {online}/{total}
         </span>
         <span className="text-sm text-ink-muted">nodes online</span>
@@ -31,8 +38,9 @@ export function NodeHealthSummary({ nodes }: NodeHealthSummaryProps) {
         />
       </div>
       {lowBattery > 0 && (
-        <p className="mt-3 text-xs text-status-high">
-          ▲ {lowBattery} node{lowBattery === 1 ? "" : "s"} low on battery
+        <p className="mt-3 flex items-center gap-1.5 text-xs text-status-high">
+          <BatteryWarning size={14} />
+          {lowBattery} node{lowBattery === 1 ? "" : "s"} low on battery
         </p>
       )}
     </section>

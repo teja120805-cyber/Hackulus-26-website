@@ -1,13 +1,14 @@
+import { CircleDot, Diamond, TriangleAlert, XCircle } from "lucide-react";
 import type { ZoneStatus } from "../types";
 import { STATUS_LABEL } from "../types";
 import { STATUS_BG, STATUS_COLOR } from "../lib/status";
 
-const STATUS_ICON: Record<ZoneStatus, string> = {
-  low: "●",
-  moderate: "▲",
-  high: "▲",
-  critical: "⬥",
-  emergency: "✕",
+const STATUS_ICON: Record<ZoneStatus, typeof CircleDot> = {
+  low: CircleDot,
+  moderate: TriangleAlert,
+  high: TriangleAlert,
+  critical: Diamond,
+  emergency: XCircle,
 };
 
 interface StatusBadgeProps {
@@ -18,6 +19,7 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ status, size = "md", pulse = false }: StatusBadgeProps) {
   const isUrgent = status === "critical" || status === "emergency";
+  const Icon = STATUS_ICON[status];
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-medium ${
@@ -25,9 +27,7 @@ export function StatusBadge({ status, size = "md", pulse = false }: StatusBadgeP
       }`}
       style={{ background: STATUS_BG[status], color: STATUS_COLOR[status] }}
     >
-      <span aria-hidden="true" className={pulse && isUrgent ? "status-pulse" : undefined}>
-        {STATUS_ICON[status]}
-      </span>
+      <Icon size={size === "sm" ? 12 : 14} aria-hidden="true" className={pulse && isUrgent ? "status-pulse" : undefined} />
       {STATUS_LABEL[status]}
     </span>
   );

@@ -1,7 +1,10 @@
 import { useMemo } from "react";
+import { Activity, AlertTriangle, Gauge, Users } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { useSimulationStore } from "../lib/simulationStore";
 import { STATUS_COLOR } from "../lib/status";
+import { PageIntro } from "../components/PageIntro";
+import { StatCard } from "../components/StatCard";
 
 const TICK_SECONDS = 2.5;
 
@@ -26,43 +29,35 @@ export function Analytics() {
   }, [zones, history]);
 
   const busiest = useMemo(() => [...zoneStats].sort((a, b) => b.avg - a.avg), [zoneStats]);
-  const peakOverall = useMemo(
-    () => [...zoneStats].sort((a, b) => b.peak - a.peak)[0],
-    [zoneStats],
-  );
+  const peakOverall = useMemo(() => [...zoneStats].sort((a, b) => b.peak - a.peak)[0], [zoneStats]);
   const totalEscalations = alerts.filter((a) => a.type === "zone" && a.severity !== "info").length;
+  const avgDensity = Math.round(zones.reduce((sum, z) => sum + z.densityScore, 0) / zones.length);
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-ink">Analytics</h1>
-        <p className="mt-1 text-sm text-ink-muted">
-          Post-event reporting from accumulated session history ({history.length} samples logged).
-        </p>
+      <PageIntro
+        eyebrow="Event Report · Live Preview"
+        title="Read the room."
+        description={`A clear picture of how your event is moving (${history.length} samples logged).`}
+        compact
+      />
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Peak zone" value={`${peakOverall?.peak ?? 0}`} detail={peakOverall?.zone.name ?? "—"} icon={Activity} tone="alert" />
+        <StatCard label="Avg. density" value={`${avgDensity}`} detail="Across all zones" icon={Users} tone="copper" />
+        <StatCard label="Escalations" value={String(totalEscalations)} detail="Critical / emergency events" icon={AlertTriangle} />
+        <StatCard
+          label="Longest escalation"
+          value={`${Math.max(0, ...zoneStats.map((z) => z.escalationSeconds))}s`}
+          detail="Time above threshold"
+          icon={Gauge}
+          tone="safe"
+        />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-border bg-surface p-4">
-          <p className="text-xs font-medium text-ink-muted">Peak Zone</p>
-          <p className="mt-1 text-xl font-semibold text-ink">{peakOverall?.zone.name ?? "—"}</p>
-          <p className="text-sm text-ink-muted">{peakOverall?.peak ?? 0} peak density</p>
-        </div>
-        <div className="rounded-xl border border-border bg-surface p-4">
-          <p className="text-xs font-medium text-ink-muted">Total Escalations</p>
-          <p className="mt-1 text-xl font-semibold text-ink">{totalEscalations}</p>
-          <p className="text-sm text-ink-muted">critical / emergency events</p>
-        </div>
-        <div className="rounded-xl border border-border bg-surface p-4">
-          <p className="text-xs font-medium text-ink-muted">Longest Escalation</p>
-          <p className="mt-1 text-xl font-semibold text-ink">
-            {Math.max(0, ...zoneStats.map((z) => z.escalationSeconds))}s
-          </p>
-          <p className="text-sm text-ink-muted">time spent above threshold</p>
-        </div>
-      </div>
-
-      <section className="rounded-xl border border-border bg-surface p-4">
-        <h2 className="mb-3 text-sm font-semibold text-ink">Busiest Zones (avg. density)</h2>
+      <section className="card p-5">
+        <p className="eyebrow">Crowd Flow</p>
+        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Busiest zones (avg. density)</h2>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={busiest} layout="vertical" margin={{ left: 8, right: 16 }}>
@@ -71,7 +66,7 @@ export function Analytics() {
               <YAxis
                 type="category"
                 dataKey={(d: (typeof busiest)[number]) => d.zone.name}
-                width={110}
+                width={150}
                 tick={{ fontSize: 12, fill: "#22261f" }}
               />
               <Tooltip contentStyle={{ borderRadius: 8, borderColor: "#e4e1d8", fontSize: 12 }} />
@@ -85,8 +80,9 @@ export function Analytics() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-border bg-surface p-4">
-        <h2 className="mb-3 text-sm font-semibold text-ink">Zone Report</h2>
+      <section className="card p-5">
+        <p className="eyebrow">Ranked</p>
+        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Zone report</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
