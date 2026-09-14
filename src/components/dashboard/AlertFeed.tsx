@@ -31,15 +31,15 @@ export function AlertFeed({ alerts, title = "Live Alerts", emptyLabel = "No aler
       <div className="mb-4 flex items-center justify-between">
         <div>
           <p className="eyebrow">Live Feed</p>
-          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">{title}</h2>
+          <h2 className="mt-0.5 font-heading text-lg font-semibold text-ink">{title}</h2>
         </div>
-        <span className="flex items-center gap-1.5 font-mono text-[10px] text-status-low">
+        <span className="flex items-center gap-1.5 font-mono text-xs text-status-low">
           <span className="h-1.5 w-1.5 rounded-full bg-status-low" aria-hidden="true" />
           Live
         </span>
       </div>
       {shown.length === 0 ? (
-        <p className="text-sm text-ink-muted">{emptyLabel}</p>
+        <p className="text-base text-ink-muted">{emptyLabel}</p>
       ) : (
         <ul className="flex max-h-[26rem] flex-col gap-2 overflow-y-auto">
           {shown.map((alert) => {
@@ -47,12 +47,12 @@ export function AlertFeed({ alerts, title = "Live Alerts", emptyLabel = "No aler
             return (
               <li
                 key={alert.id}
-                className={`flex items-start gap-2.5 rounded-lg border-l-4 px-3 py-2.5 text-sm transition-colors hover:brightness-[0.98] ${SEVERITY_STYLE[alert.severity]}`}
+                className={`flex items-start gap-2.5 rounded-lg border-l-4 px-3.5 py-3 text-base transition-colors hover:brightness-[0.98] ${SEVERITY_STYLE[alert.severity]}`}
               >
-                <Icon size={15} aria-hidden="true" className="mt-0.5 shrink-0" />
+                <Icon size={18} aria-hidden="true" className="mt-0.5 shrink-0" />
                 <div className="flex-1 text-ink">
                   <p className="leading-snug">{alert.message}</p>
-                  <time className="text-xs text-ink-muted">{formatTime(alert.timestamp)}</time>
+                  <time className="text-sm text-ink-muted">{formatTime(alert.timestamp)}</time>
                 </div>
               </li>
             );

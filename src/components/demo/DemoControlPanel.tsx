@@ -133,7 +133,7 @@ export function DemoControlPanel() {
             return (
               <div key={s.label} className="relative flex flex-1 flex-col items-center gap-2 text-center">
                 <div
-                  className={`z-10 grid h-[29px] w-[29px] place-items-center rounded-full border font-mono text-[11px] ${
+                  className={`z-10 grid h-9 w-9 place-items-center rounded-full border font-mono text-sm ${
                     complete
                       ? "border-[#b7d8bc] bg-status-low-bg text-status-low"
                       : active
@@ -141,12 +141,12 @@ export function DemoControlPanel() {
                         : "border-[#d8d5cc] bg-white text-[#aaa]"
                   }`}
                 >
-                  {complete ? <Check size={14} /> : index + 1}
+                  {complete ? <Check size={16} /> : index + 1}
                 </div>
-                <span className={`text-[10px] ${complete || active ? "text-ink" : "text-[#aaa]"}`}>{s.label}</span>
+                <span className={`text-xs ${complete || active ? "text-ink" : "text-[#aaa]"}`}>{s.label}</span>
                 {index < steps.length - 1 && (
                   <i
-                    className={`absolute left-1/2 top-[14px] h-px w-full ${
+                    className={`absolute left-1/2 top-[18px] h-px w-full ${
                       complete ? "bg-[#b7d8bc]" : "bg-[#e6e3da]"
                     }`}
                   />
@@ -156,14 +156,14 @@ export function DemoControlPanel() {
           })}
         </div>
 
-        <div className="mx-auto max-w-[30rem] text-center">
-          <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-accent/10 text-accent">
-            <Play size={28} />
+        <div className="mx-auto max-w-[32rem] text-center">
+          <div className="mx-auto mb-4 grid h-20 w-20 place-items-center rounded-full bg-accent/10 text-accent">
+            <Play size={34} />
           </div>
-          <h3 className="font-heading text-xl font-semibold text-ink">
+          <h3 className="font-heading text-2xl font-semibold text-ink">
             {step === 0 ? "Ready when you are" : step >= steps.length ? "Scenario complete" : steps[step].label}
           </h3>
-          <p className="mx-auto mt-2 mb-5 text-sm leading-relaxed text-ink-muted">
+          <p className="mx-auto mt-2 mb-5 text-base leading-relaxed text-ink-muted">
             {step === 0
               ? "Use the guided sequence to show how CrowdSense turns sensor signals into clear action."
               : step >= steps.length
@@ -185,18 +185,18 @@ export function DemoControlPanel() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <section className="card p-5">
           <p className="eyebrow">Current State</p>
-          <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">What the app is seeing</h2>
-          <div className="flex items-center justify-between border-b border-[#efede7] py-3 text-sm">
+          <h2 className="mt-0.5 mb-3 font-heading text-lg font-semibold text-ink">What the app is seeing</h2>
+          <div className="flex items-center justify-between border-b border-[#efede7] py-3.5 text-base">
             <span className="text-ink-muted">SJT</span>
             {stageZone && <StatusBadge status={stageZone.status} size="sm" />}
           </div>
-          <div className="flex items-center justify-between border-b border-[#efede7] py-3 text-sm">
+          <div className="flex items-center justify-between border-b border-[#efede7] py-3.5 text-base">
             <span className="text-ink-muted">Relay {relayNode?.id ?? "—"}</span>
             <b className={relayNode?.connected ? "text-status-low" : "text-status-critical"}>
               {relayNode?.connected ? "Connected" : "Rerouting"}
             </b>
           </div>
-          <div className="flex items-center justify-between py-3 text-sm">
+          <div className="flex items-center justify-between py-3.5 text-base">
             <span className="text-ink-muted">{sosWearable?.childName ?? "—"}</span>
             <b className={sosWearable?.status === "safe" ? "text-status-low" : "text-status-critical"}>
               {sosWearable?.status === "safe" ? "Safe" : sosWearable?.status === "sos" ? "SOS active" : "Separated"}
@@ -205,9 +205,9 @@ export function DemoControlPanel() {
         </section>
 
         <section className="card flex flex-col gap-3 bg-[#292d26] p-6 text-white">
-          <Zap size={22} className="text-[#d3a362]" />
-          <h3 className="font-heading text-base font-semibold text-white">The wow moment</h3>
-          <p className="text-sm leading-relaxed text-[#b2b7ad]">
+          <Zap size={24} className="text-[#d3a362]" />
+          <h3 className="font-heading text-lg font-semibold text-white">The wow moment</h3>
+          <p className="text-base leading-relaxed text-[#b2b7ad]">
             Open the map, network, and safety views in separate tabs while you run the sequence. Every screen shares
             the same live state.
           </p>

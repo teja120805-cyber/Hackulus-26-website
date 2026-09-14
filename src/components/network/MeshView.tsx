@@ -40,13 +40,13 @@ export function MeshView({ nodes }: MeshViewProps) {
       <div className="mb-4 flex items-center justify-between">
         <div>
           <p className="eyebrow">Mesh Topology</p>
-          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Self-healing network</h2>
+          <h2 className="mt-0.5 font-heading text-lg font-semibold text-ink">Self-healing network</h2>
         </div>
-        <Zap size={16} className="text-accent" />
+        <Zap size={18} className="text-accent" />
       </div>
       <svg viewBox="0 0 600 440" className="w-full" role="img" aria-label="Mesh network topology">
-        <circle cx={CENTER.x} cy={CENTER.y} r={26} fill="#22261f" />
-        <text x={CENTER.x} y={CENTER.y + 4} textAnchor="middle" fontSize="10" fill="#fff" fontWeight={600}>
+        <circle cx={CENTER.x} cy={CENTER.y} r={28} fill="#22261f" />
+        <text x={CENTER.x} y={CENTER.y + 5} textAnchor="middle" fontSize="13" fill="#fff" fontWeight={700}>
           HUB
         </text>
 
@@ -92,16 +92,16 @@ export function MeshView({ nodes }: MeshViewProps) {
             <circle
               cx={x}
               cy={y}
-              r={16}
+              r={19}
               fill={node.connected ? "#eaf5ec" : "#fae4e0"}
               stroke={node.connected ? "#3f9a5d" : "#c94a34"}
               strokeWidth={2}
               className={node.connected ? undefined : "status-pulse"}
             />
-            <text x={x} y={y + 3} textAnchor="middle" fontSize="9" fill="#22261f" fontWeight={600}>
+            <text x={x} y={y + 4} textAnchor="middle" fontSize="12" fill="#22261f" fontWeight={700}>
               {Math.round(node.batteryLevel)}
             </text>
-            <text x={x} y={y + 30} textAnchor="middle" fontSize="9" fill="#6b7268">
+            <text x={x} y={y + 34} textAnchor="middle" fontSize="12" fill="#6b7268">
               {node.id}
             </text>
           </g>
@@ -112,19 +112,19 @@ export function MeshView({ nodes }: MeshViewProps) {
         {nodes.map((node) => (
           <li
             key={node.id}
-            className="flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2 text-sm"
+            className="flex items-center justify-between gap-2 rounded-lg border border-border px-3.5 py-3 text-base"
           >
             <div className="flex min-w-0 items-center gap-2.5">
               <span
-                className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${
+                className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${
                   node.connected ? "bg-status-low-bg text-status-low" : "bg-status-critical-bg text-status-critical"
                 }`}
               >
-                {node.connected ? <Radio size={14} /> : <X size={14} />}
+                {node.connected ? <Radio size={16} /> : <X size={16} />}
               </span>
               <div className="min-w-0">
                 <p className="truncate font-medium text-ink">{node.id}</p>
-                <p className="truncate text-xs text-ink-muted">
+                <p className="truncate text-sm text-ink-muted">
                   {node.connected ? "Connected" : `Offline ${Math.round(node.lastSeenSeconds)}s — rerouted`} ·{" "}
                   {Math.round(node.batteryLevel)}%
                 </p>
@@ -133,7 +133,7 @@ export function MeshView({ nodes }: MeshViewProps) {
             <button
               type="button"
               onClick={() => (node.connected ? dropNode(node.id) : restoreNode(node.id))}
-              className="shrink-0 rounded-md border border-accent px-2 py-1 text-xs font-medium text-accent hover:bg-accent hover:text-white"
+              className="shrink-0 rounded-md border border-accent px-3 py-1.5 text-sm font-medium text-accent hover:bg-accent hover:text-white"
             >
               {node.connected ? "Drop" : "Restore"}
             </button>

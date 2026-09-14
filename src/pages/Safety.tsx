@@ -26,17 +26,17 @@ export function Safety() {
         compact
         action={
           <div className="text-right">
-            <strong className="font-heading text-3xl font-semibold text-status-low">
+            <strong className="font-heading text-4xl font-semibold text-status-low">
               {safeCount}
-              <small className="text-base font-normal text-ink-muted"> / {wearables.length}</small>
+              <small className="text-lg font-normal text-ink-muted"> / {wearables.length}</small>
             </strong>
-            <span className="block text-[11px] text-ink-muted">within safe range</span>
+            <span className="block text-sm text-ink-muted">within safe range</span>
           </div>
         }
       />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
-        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-3 xl:grid-cols-2">
           {sorted.map((w) => (
             <WearableRow key={w.id} wearable={w} />
           ))}

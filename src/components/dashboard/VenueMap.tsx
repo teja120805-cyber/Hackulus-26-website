@@ -17,25 +17,25 @@ interface VenueMapProps {
 function buildIcon(zone: Zone) {
   const urgent = zone.status === "critical" || zone.status === "emergency";
   const html = `
-    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:auto;cursor:pointer;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;pointer-events:auto;cursor:pointer;">
       <span style="
         display:flex;align-items:center;justify-content:center;
-        height:44px;width:44px;border-radius:9999px;
-        border:2px solid ${STATUS_COLOR[zone.status]};
+        height:56px;width:56px;border-radius:9999px;
+        border:3px solid ${STATUS_COLOR[zone.status]};
         background:${STATUS_BG[zone.status]};
         color:${STATUS_COLOR[zone.status]};
-        font-weight:600;font-size:13px;font-family:system-ui,sans-serif;
+        font-weight:700;font-size:17px;font-family:system-ui,sans-serif;
         box-shadow:0 1px 3px rgba(0,0,0,0.25);
         ${urgent ? "animation:cs-pulse 1.6s ease-in-out infinite;" : ""}
       ">${zone.densityScore}</span>
       <span style="
-        max-width:9rem;text-align:center;border-radius:4px;
-        background:rgba(255,255,255,0.95);padding:1px 6px;
-        font-size:11px;font-weight:600;color:#22261f;font-family:system-ui,sans-serif;
+        max-width:10rem;text-align:center;border-radius:4px;
+        background:rgba(255,255,255,0.95);padding:2px 8px;
+        font-size:14px;font-weight:600;color:#22261f;font-family:system-ui,sans-serif;
         box-shadow:0 1px 2px rgba(0,0,0,0.15);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
       ">${zone.name}</span>
       <span style="
-        border-radius:9999px;padding:1px 8px;font-size:10px;font-weight:600;
+        border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:600;
         font-family:system-ui,sans-serif;
         background:${STATUS_BG[zone.status]};color:${STATUS_COLOR[zone.status]};
       ">${STATUS_LABEL[zone.status]}</span>
@@ -44,8 +44,8 @@ function buildIcon(zone: Zone) {
   return L.divIcon({
     html,
     className: "crowdsense-zone-marker",
-    iconSize: [140, 80],
-    iconAnchor: [70, 44],
+    iconSize: [160, 96],
+    iconAnchor: [80, 52],
   });
 }
 
@@ -58,20 +58,20 @@ export function VenueMap({ zones }: VenueMapProps) {
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="eyebrow">Venue Map · VIT Vellore</p>
-          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Live density by zone</h2>
+          <h2 className="mt-0.5 font-heading text-lg font-semibold text-ink">Live density by zone</h2>
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-[10px] text-ink-muted">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-ink-muted">
           <span className="flex items-center gap-1.5">
-            <i className="h-1.5 w-1.5 rounded-full bg-status-low" /> Low
+            <i className="h-2 w-2 rounded-full bg-status-low" /> Low
           </span>
           <span className="flex items-center gap-1.5">
-            <i className="h-1.5 w-1.5 rounded-full bg-status-moderate" /> Moderate
+            <i className="h-2 w-2 rounded-full bg-status-moderate" /> Moderate
           </span>
           <span className="flex items-center gap-1.5">
-            <i className="h-1.5 w-1.5 rounded-full bg-status-high" /> High
+            <i className="h-2 w-2 rounded-full bg-status-high" /> High
           </span>
           <span className="flex items-center gap-1.5">
-            <i className="h-1.5 w-1.5 rounded-full bg-status-critical" /> Critical
+            <i className="h-2 w-2 rounded-full bg-status-critical" /> Critical
           </span>
         </div>
       </div>

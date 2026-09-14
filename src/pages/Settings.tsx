@@ -11,7 +11,7 @@ export function Settings() {
   const updateWearableSafeDistance = useSimulationStore((s) => s.updateWearableSafeDistance);
 
   const inputClasses =
-    "mt-1 w-full rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-ink transition-colors hover:border-[#c9b69d] focus-visible:outline-2 focus-visible:outline-accent";
+    "mt-1 w-full rounded-md border border-border bg-bg px-3 py-2 text-base text-ink transition-colors hover:border-[#c9b69d] focus-visible:outline-2 focus-visible:outline-accent";
 
   return (
     <div className="flex flex-col gap-6">
@@ -21,20 +21,20 @@ export function Settings() {
         description="Tune your safety thresholds and venue layout."
         compact
         action={
-          <span className="flex items-center gap-1.5 text-xs text-status-low">
-            <Check size={14} /> All changes saved locally
+          <span className="flex items-center gap-1.5 text-sm text-status-low">
+            <Check size={16} /> All changes saved locally
           </span>
         }
       />
 
       <section className="card p-5">
         <p className="eyebrow">Zone Thresholds</p>
-        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Zones</h2>
+        <h2 className="mt-0.5 mb-3 font-heading text-lg font-semibold text-ink">Zones</h2>
         <div className="flex flex-col divide-y divide-border">
           {zones.map((zone) => (
-            <div key={zone.id} className="grid grid-cols-1 gap-3 py-3 sm:grid-cols-[1fr_1fr_1fr_1fr] sm:items-center">
+            <div key={zone.id} className="grid grid-cols-1 gap-3 py-4 sm:grid-cols-[1fr_1fr_1fr_1fr] sm:items-center">
               <div>
-                <label htmlFor={`name-${zone.id}`} className="text-xs text-ink-muted">
+                <label htmlFor={`name-${zone.id}`} className="text-sm text-ink-muted">
                   Name
                 </label>
                 <input
@@ -46,7 +46,7 @@ export function Settings() {
                 />
               </div>
               <div>
-                <label htmlFor={`threshold-${zone.id}`} className="text-xs text-ink-muted">
+                <label htmlFor={`threshold-${zone.id}`} className="text-sm text-ink-muted">
                   Capacity Threshold
                 </label>
                 <input
@@ -60,7 +60,7 @@ export function Settings() {
                 />
               </div>
               <div>
-                <label htmlFor={`lat-${zone.id}`} className="text-xs text-ink-muted">
+                <label htmlFor={`lat-${zone.id}`} className="text-sm text-ink-muted">
                   Latitude
                 </label>
                 <input
@@ -73,7 +73,7 @@ export function Settings() {
                 />
               </div>
               <div>
-                <label htmlFor={`lng-${zone.id}`} className="text-xs text-ink-muted">
+                <label htmlFor={`lng-${zone.id}`} className="text-sm text-ink-muted">
                   Longitude
                 </label>
                 <input
@@ -92,16 +92,16 @@ export function Settings() {
 
       <section className="card p-5">
         <p className="eyebrow">Wearables</p>
-        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Safe distances</h2>
+        <h2 className="mt-0.5 mb-3 font-heading text-lg font-semibold text-ink">Safe distances</h2>
         <div className="flex flex-col divide-y divide-border">
           {wearables.map((w) => (
-            <div key={w.id} className="flex items-center justify-between gap-3 py-3">
+            <div key={w.id} className="flex items-center justify-between gap-3 py-4">
               <div>
-                <p className="text-sm font-medium text-ink">{w.childName}</p>
-                <p className="text-xs text-ink-muted">Guardian: {w.guardianName}</p>
+                <p className="text-base font-medium text-ink">{w.childName}</p>
+                <p className="text-sm text-ink-muted">Guardian: {w.guardianName}</p>
               </div>
               <div className="flex items-center gap-2">
-                <label htmlFor={`safe-${w.id}`} className="text-xs text-ink-muted">
+                <label htmlFor={`safe-${w.id}`} className="text-sm text-ink-muted">
                   Safe distance (m)
                 </label>
                 <input
@@ -111,7 +111,7 @@ export function Settings() {
                   max={100}
                   value={w.safeDistanceMeters}
                   onChange={(e) => updateWearableSafeDistance(w.id, Number(e.target.value))}
-                  className={`w-20 ${inputClasses}`}
+                  className={`w-24 ${inputClasses}`}
                 />
               </div>
             </div>

@@ -44,16 +44,16 @@ export function Dashboard() {
           onClick={() => navigate("/safety")}
           className="flex w-full items-center gap-3 rounded-xl border border-[#efcbbf] bg-[#fff8f5] px-4 py-3 text-left transition-all hover:-translate-y-px hover:bg-[#fff1ec]"
         >
-          <span className="grid h-[29px] w-[29px] shrink-0 place-items-center rounded-lg bg-status-critical-bg text-status-critical">
-            <TriangleAlert size={16} />
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-status-critical-bg text-status-critical">
+            <TriangleAlert size={18} />
           </span>
           <span className="flex-1">
-            <b className="block text-sm text-ink">
+            <b className="block text-base text-ink">
               {activeAlerts.length} active {activeAlerts.length === 1 ? "alert" : "alerts"} need attention
             </b>
-            <small className="mt-0.5 block text-xs text-[#8a7067]">{activeAlerts[0].message}</small>
+            <small className="mt-0.5 block text-sm text-[#8a7067]">{activeAlerts[0].message}</small>
           </span>
-          <ChevronRight size={17} className="shrink-0 text-ink-muted" />
+          <ChevronRight size={20} className="shrink-0 text-ink-muted" />
         </button>
       )}
 
@@ -93,10 +93,10 @@ export function Dashboard() {
         <div className="mb-1 flex items-center justify-between">
           <div>
             <p className="eyebrow">Zone Snapshot</p>
-            <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">At a glance</h2>
+            <h2 className="mt-0.5 font-heading text-lg font-semibold text-ink">At a glance</h2>
           </div>
           <Link to="/analytics" className="btn-text">
-            View analytics <ChevronRight size={15} />
+            View analytics <ChevronRight size={17} />
           </Link>
         </div>
         <div className="flex flex-col">
@@ -105,24 +105,24 @@ export function Dashboard() {
               key={zone.id}
               type="button"
               onClick={() => navigate(`/zones/${zone.id}`)}
-              className="grid grid-cols-[1.4fr_1fr_2.5rem] items-center gap-3 border-b border-[#f0eee8] py-3 text-left last:border-0 hover:bg-[#fbfaf7] sm:grid-cols-[1.4fr_1fr_40px_5rem_1.25rem]"
+              className="grid grid-cols-[1.4fr_1fr_3rem] items-center gap-3 border-b border-[#f0eee8] py-3.5 text-left last:border-0 hover:bg-[#fbfaf7] sm:grid-cols-[1.4fr_1fr_48px_5rem_1.5rem]"
             >
-              <span className="flex items-center gap-2 truncate text-sm text-ink">
+              <span className="flex items-center gap-2 truncate text-base text-ink">
                 <i
-                  className="h-1.5 w-1.5 shrink-0 rounded-full"
+                  className="h-2 w-2 shrink-0 rounded-full"
                   style={{ background: `var(--color-status-${zone.status})` }}
                 />
                 {zone.name}
               </span>
-              <span className="hidden h-[5px] overflow-hidden rounded-full bg-[#eceae4] sm:block">
+              <span className="hidden h-1.5 overflow-hidden rounded-full bg-[#eceae4] sm:block">
                 <i
                   className="block h-full rounded-full"
                   style={{ width: `${Math.min(100, zone.densityScore)}%`, background: `var(--color-status-${zone.status})` }}
                 />
               </span>
-              <b className="font-mono text-xs text-ink">{zone.densityScore}%</b>
+              <b className="font-mono text-sm text-ink">{zone.densityScore}%</b>
               <span className="hidden sm:block" />
-              <ChevronRight size={16} className="hidden shrink-0 text-ink-muted sm:block" />
+              <ChevronRight size={18} className="hidden shrink-0 text-ink-muted sm:block" />
             </button>
           ))}
         </div>

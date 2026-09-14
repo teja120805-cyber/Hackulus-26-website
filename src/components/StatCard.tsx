@@ -19,14 +19,14 @@ interface StatCardProps {
 
 export function StatCard({ label, value, detail, icon: Icon, tone = "default" }: StatCardProps) {
   return (
-    <div className="card flex min-h-[91px] items-start gap-3 p-4">
-      <div className={`grid h-[34px] w-[34px] shrink-0 place-items-center rounded-lg ${TONE_CLASSES[tone]}`}>
-        <Icon size={18} />
+    <div className="card flex min-h-[104px] items-start gap-3.5 p-5">
+      <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${TONE_CLASSES[tone]}`}>
+        <Icon size={20} />
       </div>
       <div>
-        <p className="mb-1 text-[11px] text-ink-muted">{label}</p>
-        <strong className="block font-heading text-[22px] tracking-tight text-ink">{value}</strong>
-        <small className="mt-0.5 block text-[10px] text-ink-muted/80">{detail}</small>
+        <p className="mb-1 text-sm text-ink-muted">{label}</p>
+        <strong className="block font-heading text-[28px] leading-none tracking-tight text-ink">{value}</strong>
+        <small className="mt-1.5 block text-xs text-ink-muted/90">{detail}</small>
       </div>
     </div>
   );

@@ -16,15 +16,15 @@ export function NodeHealthSummary({ nodes }: NodeHealthSummaryProps) {
       <div className="mb-4 flex items-center justify-between">
         <div>
           <p className="eyebrow">Mesh Health</p>
-          <h2 className="mt-0.5 font-heading text-base font-semibold text-ink">Node Network</h2>
+          <h2 className="mt-0.5 font-heading text-lg font-semibold text-ink">Node Network</h2>
         </div>
-        <Radio size={16} className="text-status-low" />
+        <Radio size={18} className="text-status-low" />
       </div>
       <div className="flex items-baseline gap-2">
-        <span className="font-heading text-3xl font-semibold text-ink">
+        <span className="font-heading text-4xl font-semibold text-ink">
           {online}/{total}
         </span>
-        <span className="text-sm text-ink-muted">nodes online</span>
+        <span className="text-base text-ink-muted">nodes online</span>
       </div>
       <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-bg">
         <div
@@ -38,8 +38,8 @@ export function NodeHealthSummary({ nodes }: NodeHealthSummaryProps) {
         />
       </div>
       {lowBattery > 0 && (
-        <p className="mt-3 flex items-center gap-1.5 text-xs text-status-high">
-          <BatteryWarning size={14} />
+        <p className="mt-3 flex items-center gap-1.5 text-sm text-status-high">
+          <BatteryWarning size={16} />
           {lowBattery} node{lowBattery === 1 ? "" : "s"} low on battery
         </p>
       )}

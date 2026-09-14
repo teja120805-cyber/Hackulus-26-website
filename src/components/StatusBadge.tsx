@@ -23,11 +23,11 @@ export function StatusBadge({ status, size = "md", pulse = false }: StatusBadgeP
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-medium ${
-        size === "sm" ? "px-2 py-0.5 text-xs" : "px-3 py-1 text-sm"
+        size === "sm" ? "px-2.5 py-1 text-sm" : "px-3.5 py-1.5 text-base"
       }`}
       style={{ background: STATUS_BG[status], color: STATUS_COLOR[status] }}
     >
-      <Icon size={size === "sm" ? 12 : 14} aria-hidden="true" className={pulse && isUrgent ? "status-pulse" : undefined} />
+      <Icon size={size === "sm" ? 14 : 16} aria-hidden="true" className={pulse && isUrgent ? "status-pulse" : undefined} />
       {STATUS_LABEL[status]}
     </span>
   );

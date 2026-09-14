@@ -52,27 +52,27 @@ export function AppShell() {
   return (
     <div className="flex min-h-full bg-bg">
       <aside
-        className={`fixed inset-y-0 left-0 z-20 flex w-64 shrink-0 flex-col border-r border-border bg-sidebar px-4 pb-4 pt-7 transition-transform duration-200 sm:static sm:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-20 flex w-72 shrink-0 flex-col border-r border-border bg-sidebar px-4 pb-4 pt-7 transition-transform duration-200 sm:static sm:translate-x-0 ${
           mobileNavOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center gap-2.5 px-2 font-heading text-xl font-bold tracking-tight text-ink">
-          <span className="flex h-8 w-8 -rotate-3 items-center justify-center rounded-[9px] bg-ink text-white">
-            <Activity size={18} />
+        <div className="flex items-center gap-2.5 px-2 font-heading text-2xl font-bold tracking-tight text-ink">
+          <span className="flex h-9 w-9 -rotate-3 items-center justify-center rounded-[9px] bg-ink text-white">
+            <Activity size={20} />
           </span>
           Crowd<span className="text-accent">Sense</span>
         </div>
 
-        <div className="mx-2 my-7 flex items-center gap-2 rounded-lg border border-[#d7d4cb] bg-[#f8f7f3] px-2.5 py-2 font-mono text-[10px] tracking-wide text-ink-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-status-low shadow-[0_0_0_3px_rgba(63,154,93,0.12)]" aria-hidden="true" />
+        <div className="mx-2 my-7 flex items-center gap-2 rounded-lg border border-[#d7d4cb] bg-[#f8f7f3] px-3 py-2.5 font-mono text-sm tracking-wide text-ink-muted">
+          <span className="h-2 w-2 rounded-full bg-status-low shadow-[0_0_0_3px_rgba(63,154,93,0.12)]" aria-hidden="true" />
           LIVE EVENT
-          <ChevronRight size={14} className="ml-auto" />
+          <ChevronRight size={16} className="ml-auto" />
         </div>
 
         <nav aria-label="Primary" onClick={() => setMobileNavOpen(false)} className="flex-1">
           {NAV_ITEMS.map((group) => (
             <div key={group.section}>
-              <p className="mb-2 mt-6 px-3 font-mono text-[10px] font-medium tracking-[0.14em] text-[#9a9d94] first:mt-0">
+              <p className="mb-2 mt-6 px-3 font-mono text-xs font-medium tracking-[0.12em] text-[#9a9d94] first:mt-0">
                 {group.section}
               </p>
               {group.items.map((item) => {
@@ -84,17 +84,17 @@ export function AppShell() {
                     to={item.to}
                     end={item.end}
                     className={({ isActive }) =>
-                      `relative my-0.5 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors duration-150 ${
+                      `relative my-0.5 flex items-center gap-3 rounded-lg px-3 py-3 text-base transition-colors duration-150 ${
                         isActive
                           ? "bg-white font-semibold text-ink shadow-[0_8px_24px_rgba(54,48,36,0.05)] before:absolute before:-left-4 before:top-2 before:bottom-2 before:w-[3px] before:rounded-r before:bg-accent"
                           : "text-[#626960] hover:translate-x-0.5 hover:bg-white/60 hover:text-ink"
                       }`
                     }
                   >
-                    <Icon size={18} />
+                    <Icon size={20} />
                     <span>{item.label}</span>
                     {badgeCount > 0 && (
-                      <b className="ml-auto rounded-full bg-[#f2ded2] px-1.5 py-0.5 font-mono text-[10px] font-normal text-status-critical">
+                      <b className="ml-auto rounded-full bg-[#f2ded2] px-2 py-0.5 font-mono text-xs font-normal text-status-critical">
                         {badgeCount}
                       </b>
                     )}
@@ -109,19 +109,19 @@ export function AppShell() {
           <Link
             to="/demo"
             onClick={() => setMobileNavOpen(false)}
-            className="mb-2 flex items-center gap-2.5 rounded-lg bg-ink px-3 py-2.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
+            className="mb-2 flex items-center gap-2.5 rounded-lg bg-ink px-3.5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
           >
-            <Play size={16} />
+            <Play size={18} />
             Demo Control
-            <span className="ml-auto font-mono text-[10px] text-[#a7aaa3]">Live</span>
+            <span className="ml-auto font-mono text-xs text-[#a7aaa3]">Live</span>
           </Link>
           <div className="flex items-center gap-2.5 border-t border-[#d7d4cb] px-1.5 pt-4">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d3a87e] font-heading text-[11px] font-semibold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#d3a87e] font-heading text-sm font-semibold text-white">
               OT
             </span>
             <div className="flex-1">
-              <b className="block text-xs">Organizer</b>
-              <small className="block text-[11px] text-ink-muted">Event lead</small>
+              <b className="block text-sm">Organizer</b>
+              <small className="block text-xs text-ink-muted">Event lead</small>
             </div>
           </div>
         </div>
@@ -137,38 +137,38 @@ export function AppShell() {
       )}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-10 flex h-[72px] items-center gap-3.5 border-b border-border bg-bg/90 px-4 backdrop-blur sm:h-[86px] sm:px-10">
+        <header className="sticky top-0 z-10 flex h-[76px] items-center gap-3.5 border-b border-border bg-bg/90 px-4 backdrop-blur sm:h-[92px] sm:px-10">
           <button
             type="button"
             onClick={() => setMobileNavOpen(true)}
             aria-label="Open navigation"
             className="grid place-items-center rounded-lg p-2 text-[#636a61] hover:bg-[#e9e7df] sm:hidden"
           >
-            <Menu size={20} />
+            <Menu size={24} />
           </button>
           <div>
             <span className="eyebrow">{currentPage.eyebrow}</span>
-            <h1 className="mt-0.5 font-heading text-lg font-semibold text-ink">{currentPage.title}</h1>
+            <h1 className="mt-0.5 font-heading text-xl font-semibold text-ink sm:text-2xl">{currentPage.title}</h1>
           </div>
           <div className="ml-auto flex items-center gap-4">
-            <span className="hidden items-center gap-1.5 text-xs text-[#566055] md:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-status-low shadow-[0_0_0_3px_rgba(63,154,93,0.12)]" aria-hidden="true" />
+            <span className="hidden items-center gap-1.5 text-sm text-[#566055] md:flex">
+              <span className="h-2 w-2 rounded-full bg-status-low shadow-[0_0_0_3px_rgba(63,154,93,0.12)]" aria-hidden="true" />
               Systems live
-              <small className="ml-0.5 text-[10px] text-[#92988e]">Synced just now</small>
+              <small className="ml-0.5 text-xs text-[#92988e]">Synced just now</small>
             </span>
             <Link
               to="/safety"
               aria-label={`Open safety alerts${activeWearableAlerts ? `, ${activeWearableAlerts} active` : ""}`}
               className="relative grid place-items-center rounded-lg p-2 text-[#636a61] hover:bg-[#e9e7df] hover:text-ink"
             >
-              <Bell size={18} />
+              <Bell size={22} />
               {activeWearableAlerts > 0 && (
-                <span className="absolute right-0.5 top-0.5 grid h-[15px] min-w-[15px] place-items-center rounded-full border-2 border-bg bg-status-critical px-1 font-mono text-[9px] font-semibold text-white">
+                <span className="absolute right-0 top-0 grid h-[18px] min-w-[18px] place-items-center rounded-full border-2 border-bg bg-status-critical px-1 font-mono text-[11px] font-semibold text-white">
                   {activeWearableAlerts}
                 </span>
               )}
             </Link>
-            <span className="hidden text-[10px] text-ink-muted sm:block">
+            <span className="hidden text-xs text-ink-muted sm:block">
               {onlineNodes}/{nodes.length} nodes online
             </span>
           </div>

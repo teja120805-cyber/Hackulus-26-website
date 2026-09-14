@@ -57,19 +57,19 @@ export function Analytics() {
 
       <section className="card p-5">
         <p className="eyebrow">Crowd Flow</p>
-        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Busiest zones (avg. density)</h2>
+        <h2 className="mt-0.5 mb-3 font-heading text-lg font-semibold text-ink">Busiest zones (avg. density)</h2>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={busiest} layout="vertical" margin={{ left: 8, right: 16 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e4e1d8" horizontal={false} />
-              <XAxis type="number" tick={{ fontSize: 11, fill: "#6b7268" }} />
+              <XAxis type="number" tick={{ fontSize: 13, fill: "#6b7268" }} />
               <YAxis
                 type="category"
                 dataKey={(d: (typeof busiest)[number]) => d.zone.name}
-                width={150}
-                tick={{ fontSize: 12, fill: "#22261f" }}
+                width={160}
+                tick={{ fontSize: 14, fill: "#22261f" }}
               />
-              <Tooltip contentStyle={{ borderRadius: 8, borderColor: "#e4e1d8", fontSize: 12 }} />
+              <Tooltip contentStyle={{ borderRadius: 8, borderColor: "#e4e1d8", fontSize: 14 }} />
               <Bar dataKey="avg" radius={[0, 6, 6, 0]}>
                 {busiest.map((entry) => (
                   <Cell key={entry.zone.id} fill={STATUS_COLOR[entry.zone.status]} />
@@ -82,26 +82,26 @@ export function Analytics() {
 
       <section className="card p-5">
         <p className="eyebrow">Ranked</p>
-        <h2 className="mt-0.5 mb-3 font-heading text-base font-semibold text-ink">Zone report</h2>
+        <h2 className="mt-0.5 mb-3 font-heading text-lg font-semibold text-ink">Zone report</h2>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
+          <table className="w-full text-left text-base">
             <thead>
-              <tr className="border-b border-border text-xs text-ink-muted">
-                <th className="py-2 pr-4 font-medium">Zone</th>
-                <th className="py-2 pr-4 font-medium">Avg. Density</th>
-                <th className="py-2 pr-4 font-medium">Peak Density</th>
-                <th className="py-2 pr-4 font-medium">Threshold</th>
-                <th className="py-2 pr-4 font-medium">Escalation Time</th>
+              <tr className="border-b border-border text-sm text-ink-muted">
+                <th className="py-2.5 pr-4 font-medium">Zone</th>
+                <th className="py-2.5 pr-4 font-medium">Avg. Density</th>
+                <th className="py-2.5 pr-4 font-medium">Peak Density</th>
+                <th className="py-2.5 pr-4 font-medium">Threshold</th>
+                <th className="py-2.5 pr-4 font-medium">Escalation Time</th>
               </tr>
             </thead>
             <tbody>
               {busiest.map(({ zone, avg, peak, escalationSeconds }) => (
                 <tr key={zone.id} className="border-b border-border last:border-0">
-                  <td className="py-2 pr-4 font-medium text-ink">{zone.name}</td>
-                  <td className="py-2 pr-4 text-ink-muted">{avg}</td>
-                  <td className="py-2 pr-4 text-ink-muted">{peak}</td>
-                  <td className="py-2 pr-4 text-ink-muted">{zone.capacityThreshold}</td>
-                  <td className="py-2 pr-4 text-ink-muted">{escalationSeconds}s</td>
+                  <td className="py-3 pr-4 font-medium text-ink">{zone.name}</td>
+                  <td className="py-3 pr-4 text-ink-muted">{avg}</td>
+                  <td className="py-3 pr-4 text-ink-muted">{peak}</td>
+                  <td className="py-3 pr-4 text-ink-muted">{zone.capacityThreshold}</td>
+                  <td className="py-3 pr-4 text-ink-muted">{escalationSeconds}s</td>
                 </tr>
               ))}
             </tbody>
