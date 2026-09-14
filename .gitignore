@@ -28,3 +28,9 @@ fp-info-cache
 # KiCad history and lock files
 .history/
 *.lck
+
+# Node.js / build artifacts
+node_modules
+dist
+.DS_Store
+*.local
