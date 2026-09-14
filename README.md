@@ -1,32 +1,30 @@
-# React + TypeScript + Vite
+# CrowdSense
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Crowd intelligence and child-safety dashboard for temporary events (concerts, college fests,
+exhibitions). This is the software side of a hackathon hardware concept: ESP32 mesh nodes sensing
+zone-by-zone crowd density, plus BLE wearables for guardian/child safety. This app simulates that
+hardware live so the dashboard is fully demoable without any physical devices attached.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+React + TypeScript, Vite, Tailwind CSS v4, React Router, Zustand, Recharts.
 
-## React Compiler
+## Running it
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Pages
+
+- **Dashboard** (`/`) — venue map of zones, live alert feed, node health summary
+- **Zone Detail** (`/zones/:id`) — density history chart, capacity threshold, nodes in zone
+- **Safety** (`/safety`) — guardian/child wearable pairs, separation & SOS states
+- **Network** (`/network`) — mesh topology, node battery/connection status, self-healing reroutes
+- **Analytics** (`/analytics`) — post-event reporting from accumulated session history
+- **Settings** (`/settings`) — per-zone thresholds, wearable safe distances, map positions
+- **Demo Control** (`/demo`) — manual trigger panel for driving a live pitch demo
+
+All data is generated in-memory by a simulation engine (`src/lib/simulationStore.ts`) that ticks
+every 2.5 seconds — no backend, no persistence beyond the browser session.
