@@ -3,7 +3,7 @@ export type ZoneStatus = "low" | "moderate" | "high" | "critical" | "emergency";
 export interface Zone {
   id: string;
   name: string;
-  position: { x: number; y: number }; // normalized 0-1, for placing on the venue map
+  position: { lat: number; lng: number }; // real-world coordinates, for placing on the OpenStreetMap venue map
   densityScore: number; // 0-100
   capacityThreshold: number; // organizer-configurable, per zone
   status: ZoneStatus;

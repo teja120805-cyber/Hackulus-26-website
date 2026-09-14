@@ -49,32 +49,28 @@ export function Settings() {
                 />
               </div>
               <div>
-                <label htmlFor={`x-${zone.id}`} className="text-xs text-ink-muted">
-                  Map X (0-1)
+                <label htmlFor={`lat-${zone.id}`} className="text-xs text-ink-muted">
+                  Latitude
                 </label>
                 <input
-                  id={`x-${zone.id}`}
+                  id={`lat-${zone.id}`}
                   type="number"
-                  min={0}
-                  max={1}
-                  step={0.01}
-                  value={zone.position.x}
-                  onChange={(e) => repositionZone(zone.id, { ...zone.position, x: Number(e.target.value) })}
+                  step={0.0001}
+                  value={zone.position.lat}
+                  onChange={(e) => repositionZone(zone.id, { ...zone.position, lat: Number(e.target.value) })}
                   className="mt-1 w-full rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-ink focus-visible:outline-2 focus-visible:outline-accent"
                 />
               </div>
               <div>
-                <label htmlFor={`y-${zone.id}`} className="text-xs text-ink-muted">
-                  Map Y (0-1)
+                <label htmlFor={`lng-${zone.id}`} className="text-xs text-ink-muted">
+                  Longitude
                 </label>
                 <input
-                  id={`y-${zone.id}`}
+                  id={`lng-${zone.id}`}
                   type="number"
-                  min={0}
-                  max={1}
-                  step={0.01}
-                  value={zone.position.y}
-                  onChange={(e) => repositionZone(zone.id, { ...zone.position, y: Number(e.target.value) })}
+                  step={0.0001}
+                  value={zone.position.lng}
+                  onChange={(e) => repositionZone(zone.id, { ...zone.position, lng: Number(e.target.value) })}
                   className="mt-1 w-full rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-ink focus-visible:outline-2 focus-visible:outline-accent"
                 />
               </div>

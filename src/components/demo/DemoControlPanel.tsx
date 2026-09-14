@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSimulationStore } from "../../lib/simulationStore";
 
-const STAGE_ZONE_ID = "stage";
-const RELAY_NODE_ID = "stage-node-1";
+const STAGE_ZONE_ID = "sjt";
+const RELAY_NODE_ID = "sjt-node-1";
 const SOS_WEARABLE_ID = "wearable-1";
 
 interface Step {
@@ -41,8 +41,8 @@ export function DemoControlPanel() {
       },
     },
     {
-      label: "2. Escalate Stage",
-      description: "Push Main Stage density into EMERGENCY.",
+      label: "2. Escalate SJT",
+      description: "Push SJT (Silver Jubilee Tower) density into EMERGENCY.",
       run: () => escalateZone(STAGE_ZONE_ID),
     },
     {
@@ -51,8 +51,8 @@ export function DemoControlPanel() {
       run: () => relayNode && dropNode(relayNode.id),
     },
     {
-      label: "4. Resolve Stage",
-      description: "Bring Main Stage density back to a safe level.",
+      label: "4. Resolve SJT",
+      description: "Bring SJT density back to a safe level.",
       run: () => {
         resolveZone(STAGE_ZONE_ID);
         relayNode && restoreNode(relayNode.id);

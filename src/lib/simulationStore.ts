@@ -29,7 +29,7 @@ interface SimulationState {
 
   updateZoneThreshold: (zoneId: string, capacityThreshold: number) => void;
   renameZone: (zoneId: string, name: string) => void;
-  repositionZone: (zoneId: string, position: { x: number; y: number }) => void;
+  repositionZone: (zoneId: string, position: { lat: number; lng: number }) => void;
   updateWearableSafeDistance: (wearableId: string, safeDistanceMeters: number) => void;
 
   escalateZone: (zoneId: string) => void;
